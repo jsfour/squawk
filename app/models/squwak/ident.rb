@@ -7,10 +7,8 @@ module Squwak
 
 		def build_uuid
 			self.uuid = SecureRandom.uuid
-			unless valid?
-				build_uuid
-			end
-			true
+			build_uuid if !valid?
+			return self.uuid
 		end
 
 		def self.locate_identable uuid

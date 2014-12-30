@@ -29,7 +29,7 @@ Also include the Squwak methods and ask set has_identifier up on any of the clas
 
 	require 'squwak'
 	class MyModel < ActiveRecord::Base
-		include Squwak
+		extend Squwak
 		has_identifier ## makes sure that the model gets an identifer
 
 
