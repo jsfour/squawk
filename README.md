@@ -27,9 +27,8 @@ Require the code on any model that you want to include.
 
 Also include the Squwak methods and ask set has_identifier up on any of the classes that you want a uuid created in the DB for.
 
-	require 'squwak'
 	class MyModel < ActiveRecord::Base
-		extend Squwak
+		include Squwak
 		has_identifier ## makes sure that the model gets an identifer
 
 

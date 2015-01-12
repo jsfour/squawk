@@ -2,18 +2,19 @@ module Squwak
 
 	class Ident < ActiveRecord::Base
 		belongs_to :identable, polymorphic: true
-		before_save :build_uuid
+		before_save :set_uuid
 		validates :uuid, uniqueness: true
 
 		def build_uuid
-			self.uuid = SecureRandom.uuid
+			self.uuid = new_uuid
 			build_uuid if !valid?
 			return self.uuid
 		end
+		alias_method :set_uuid, :build_uuid
 
 		def self.locate_identable uuid
-			j = find_by_uuid(uuid)
-			return j.identable unless j.nil?
+			j = find_or_initialize_by_uuid(uuid)
+			return j.identable unless j.identable.nil?
 			false
 		end
 
@@ -28,6 +29,11 @@ module Squwak
 				identifier if identifier.save
 			end
 			false
+		end
+
+	private
+		def new_uuid
+			SecureRandom.uuid
 		end
 
 	end
