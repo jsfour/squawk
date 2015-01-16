@@ -13,11 +13,10 @@ module Squwak
 		alias_method :set_uuid, :build_uuid
 
 		def self.locate_identable uuid
-			j = find_or_initialize_by_uuid(uuid)
+			j = find_or_initialize_by(uuid: uuid)
 			return j.identable unless j.identable.nil?
 			false
 		end
-
 
 		def self.press_ident obj
 			if !obj.ident.nil?
