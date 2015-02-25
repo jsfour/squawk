@@ -2,7 +2,7 @@ module Squwak
 
 	class Ident < ActiveRecord::Base
 		belongs_to :identable, polymorphic: true
-		before_save :set_uuid
+		before_save :build_uuid
 		validates :uuid, uniqueness: true
 
 		def self.locate_identable uuid
@@ -23,13 +23,12 @@ module Squwak
 			false
 		end
 
-	protected
 		def build_uuid
 			self.uuid = new_uuid
 			build_uuid if !valid?
 			return self.uuid
 		end
-		alias_method :set_uuid, :build_uuid
+		#alias_method :set_uuid, :build_uuid
 
 	private
 		def new_uuid
